@@ -15,9 +15,9 @@ def driver(request):
         driver.get(test_data.endpoints.favorites_url)
         # очищается список избранных после каждого теста
         for cross_button_index in FavoritePage(driver).del_favs_button:
-            sleep(0.2)  # пока что ничего лучшего тут не вышло(
+            sleep(1)  # пока что ничего лучшего тут не вышло(
             cross_button_index.click()
-        sleep(3)
+        sleep(1)
         driver.close()
 
     request.addfinalizer(fin)
