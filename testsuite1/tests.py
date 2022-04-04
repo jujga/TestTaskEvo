@@ -59,6 +59,7 @@ def test2_add2fav_out_of_login(main_page):
                 'Количество на странице Избранное')
     assert_goodsnames_in_fav(favorite_page.fav_list, fav_goods_names_expected)
 
+
 # добавляется с индексом 1 и 2, с индексом 1 убирается
 def test3_add2fav_1_2_1(logined_page):
     goods_for_fav = logined_page.goods_list
@@ -77,9 +78,10 @@ def test3_add2fav_1_2_1(logined_page):
                 'Количество на странице Избранное')
     assert_goodsnames_in_fav(favorite_page.fav_list, fav_goods_names_expected)
 
+
 # HELPERS
 def assert_goodsnames_in_fav(actual_fav_goods_set, expected_fav_goods_set):
     assert {i.text for i in actual_fav_goods_set} == \
            {i for i in expected_fav_goods_set}, \
-        'Набор товаров в избранном равен набору,' \
-        'который добавлялся в избранное'
+           'Набор товаров в избранном равен набору,' \
+           'который добавлялся в избранное'

@@ -5,6 +5,7 @@ from selenium import webdriver
 import test_data.endpoints
 from pages.pageobjects import FavoritePage
 
+
 @pytest.fixture
 def driver(request):
     driver = webdriver.Chrome(executable_path=ChromeDriverManager().install())
@@ -22,4 +23,3 @@ def driver(request):
 
     request.addfinalizer(fin)
     return driver
-
