@@ -1,4 +1,6 @@
 from time import sleep
+
+import pytest
 import requests
 import json
 from test_data.endpoints import gorest_users_url
@@ -12,7 +14,7 @@ class RequestComponents:
         'Authorization': 'Bearer 4aa39ba4771752ba989306eb2ef68943963538efeaf4d2feedb7b22ebe3368a7'
     }
 
-
+@pytest.mark.rest
 def test1_create_user():
 
     payload = json.dumps({
@@ -35,7 +37,7 @@ def test1_create_user():
     # как нибудь потом набить коллекцию id записей в глобальную классовую переменную и удалить в тирдауне к сессии
     requests.delete(gorest_users_url+'/'+str(users_id_2_del), headers=RequestComponents.headers)
 
-
+@pytest.mark.rest
 def test2_get_user():
     user_id = 4327
     response = requests.request(

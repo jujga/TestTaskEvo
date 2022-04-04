@@ -1,7 +1,8 @@
       Автотесты для тестирования добавления в Избранное на сайте https://prom.ua/
 1. Подготовка среды:  в Pycharm через терминал проинсталлировать зависимости: pip install -r requirements.txt
-2. Запуск в терминале Pycharm: pytest testsuite1\tests.py
-
+2. Запуск в терминале Pycharm: "venv\Scripts\pytest.exe -m ui" -тесты IU
+                               "venv\Scripts\pytest.exe -m rest" -тесты по rest api
+                               "venv\Scripts\pytest.exe" - все тесты 
 3. Описание тестов:
    1. test1_add2fav:
    предустановки: логин и переход в каталог товаров https://prom.ua/Velosipednye-shiny
@@ -32,6 +33,5 @@
    test1_create_user:
    создается пользователь, в конце теста удаляется
    5. test2_get_user_info
-   6. test3_del_user
 
 
