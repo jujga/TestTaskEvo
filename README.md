@@ -1,0 +1,1 @@
+For information regarding autotests, see the readme in the /tests/README.md
