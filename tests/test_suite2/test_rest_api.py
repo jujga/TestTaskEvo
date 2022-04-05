@@ -1,7 +1,7 @@
 import pytest
 import requests
 import json
-from test_data.endpoints import gorest_users_url
+from tests.test_data.endpoints import gorest_users_url
 
 
 class RequestComponents:

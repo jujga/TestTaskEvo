@@ -1,4 +1,4 @@
-from test_data.credentials import Credentials
+from tests.test_data.credentials import Credentials
 
 
 def login_steps(main_page):

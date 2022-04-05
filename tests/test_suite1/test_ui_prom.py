@@ -1,7 +1,7 @@
 import pytest
 import pytest_check as check
-from pages.pageobjects import LoginedPage, MainPage
-import common
+from tests.pages.pageobjects import LoginedPage
+import tests.common as common
 
 """параметризуем массивом индексов товаров и признаком,
 добавляем в избранное из списка или из товара"""
