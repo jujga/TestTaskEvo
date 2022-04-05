@@ -33,5 +33,8 @@
    test1_create_user:
    создается пользователь, в конце теста удаляется
    5. test2_get_user_info
+   test checks getting user info
+   6. test3_update_user
+   test checks updating user info like name, email, status
 
 
