@@ -47,12 +47,12 @@ class BasePage(object):
                                         '//input[@id="enterPassword"]')
 
     @property
-    def comein_button(self):
+    def submit_button(self):
         return self.driver.find_element(
             By.XPATH, '//button[@id="enterPasswordConfirmButton"]')
 
-    def comein_button_click(self):
-        self.comein_button.click()
+    def submit_button_click(self):
+        self.submit_button.click()
 
     def go_logined_page(self):
         return LoginedPage(self.driver)

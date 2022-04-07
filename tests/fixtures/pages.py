@@ -1,13 +1,13 @@
 import pytest
 from tests.pages.pageobjects import MainPage
 from tests.fixtures.drivers import driver
-import tests.test_data.endpoints
+from tests.test_data.endpoints import PromEndpoints
 from tests import common
 
 
 @pytest.fixture
 def logined_page(driver: driver):
-    driver.get(tests.test_data.endpoints.velosipednye_shiny_url)
+    driver.get(PromEndpoints.velosipednye_shiny())
     main_page = MainPage(driver)
     main_page.comein_link.click()
     common.login_steps(main_page)
@@ -16,5 +16,5 @@ def logined_page(driver: driver):
 
 @pytest.fixture
 def main_page(driver: driver):
-    driver.get(tests.test_data.endpoints.velosipednye_shiny_url)
+    driver.get(PromEndpoints.velosipednye_shiny())
     return MainPage(driver)

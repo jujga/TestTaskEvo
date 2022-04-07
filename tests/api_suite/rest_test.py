@@ -33,14 +33,14 @@ def test_create_user():
             "gender": "male",
             "status": "active"}
     # как нибудь потом набить коллекцию id записей в глобальную классовую переменную и удалить в тирдауне к сессии
-    requests.delete(gorest_users_url+'/'+str(users_id_2_del), headers=RequestComponents.headers)
+    requests.delete(get_url_userid(gorest_users_url, users_id_2_del), headers=RequestComponents.headers)
 
 
 @pytest.mark.rest
 def test_get_user():
-    user_id = 4327
+    user_id = 5354
     response = requests.request(
-        "GET", gorest_users_url+'/'+str(user_id), headers=RequestComponents.headers)
+        "GET", get_url_userid(gorest_users_url, user_id), headers=RequestComponents.headers)
     assert response.status_code == 200
     assert response.json() == \
            {"id": user_id,
@@ -52,14 +52,14 @@ def test_get_user():
 
 @pytest.mark.rest
 def test_update_user():
-    user_id = 5099
+    user_id = 5345
     payload = json.dumps({
         "name": "Changed Name",
         "email": "changed_mail@15ce.com",
         "status": "inactive"
     })
     response = requests.request(
-        'PATCH', gorest_users_url+'/'+str(user_id), headers=RequestComponents.headers, data=payload)
+        'PATCH', get_url_userid(gorest_users_url, user_id), headers=RequestComponents.headers, data=payload)
     assert response.status_code == 200
     assert response.json() == \
            {"id": user_id,
@@ -67,3 +67,8 @@ def test_update_user():
             "email": "changed_mail@15ce.com",
             "gender": "female",
             "status": "inactive"}
+
+
+# HELPERS
+def get_url_userid(baseurl, user_id):
+    return f'{baseurl}/{user_id}'

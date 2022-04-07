@@ -1,40 +1,7 @@
-      Автотесты для тестирования добавления в Избранное на сайте https://prom.ua/
-1. Подготовка среды:  в Pycharm через терминал проинсталлировать зависимости: pip install -r requirements.txt
-2. Запуск в терминале Pycharm: "venv\Scripts\pytest.exe -m ui" -тесты IU
-                               "venv\Scripts\pytest.exe -m rest" -тесты по rest api
-                               "venv\Scripts\pytest.exe" - все тесты 
-3. Описание тестов:
-   1. test1_add2fav:
-   предустановки: логин и переход в каталог товаров https://prom.ua/Velosipednye-shiny
-   шаги: 
-         добавляется в избранное несколько товаров
-         проверяется счетчик количества избранного(кнопка Сердце)
-         проверяется список избранного на странице Избранное
-   Тест параметризован набором индексов товаров fav_numbers, что добавляется в избранное, и параметром add_fav_from_detail, определяющим, добавляется в избранное из списка товаров или из самого товара.
-   постусловия: переход на страницу Избранное и очистка списка.
-
-   2. test2_add2fav_out_of_login:
-   предустановки: переход в каталог товаров https://prom.ua/Velosipednye-shiny
-   шаги:
-         кликается по сердцу на товаре
-         логин
-         переход на страницу Избранное и проверка, что добавляемый товар находится в избранном
-   постусловия: переход на страницу Избранное и очистка списка.
-
-   3. test3_add2fav_1_2_1:
-   предустановки: логин и переход в каталог товаров https://prom.ua/Velosipednye-shiny
-   шаги: 
-         кликается по сердцу на товаре по счету номер (счет с нуля) 1
-         кликается по сердцу на товаре по счету номер (счет с нуля) 2
-         кликается по сердцу на товаре по счету номер (счет с нуля) 1
-         проверяется список избранного на странице Избранное на наличие только товара по счету номер 2
-   постусловия: переход на страницу Избранное и очистка списка.
-   4. REST API TESTS. USERS:
-   test1_create_user:
-   создается пользователь, в конце теста удаляется
-   5. test2_get_user_info
-   test checks getting user info
-   6. test3_update_user
-   test checks updating user info like name, email, status
-
+      my Portfolio
+1. Preparing environment :  Using Pycharm install dependencies via terminal: `pip install -r requirements.txt`
+2. Running tests (using Pycharm's terminal or cmd):
+     `venv\Scripts\pytest.exe -m ui` - run only IU tests
+     `venv\Scripts\pytest.exe -m rest` -run only api tests
+     `venv\Scripts\pytest.exe` - run all tests
 
