@@ -12,7 +12,7 @@ import tests.common as common
         ((0, 1), 'add_from_goods_list'),
         ((0, 2, 4), 'add_from_goods_list'),
         ((2, 5), 'add_from_goods_detail')))
-def test1_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
+def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
     goods_for_fav = logined_page.goods_list
     fav_goods_names_expected = []
     for goods_index in fav_numbers:
@@ -46,7 +46,7 @@ def test1_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
 
 # добавляется один товар в избранное без предварительного логина
 @pytest.mark.ui
-def test2_add2fav_out_of_login(main_page):
+def test_add2fav_out_of_login(main_page):
     # запоминаем товар, что добавляется в избранное
     fav_goods_names_expected = \
         {(LoginedPage.good_name_text(main_page.goods_list[1]))}
@@ -64,7 +64,7 @@ def test2_add2fav_out_of_login(main_page):
 
 # добавляется с индексом 1 и 2, с индексом 1 убирается
 @pytest.mark.ui
-def test3_add2fav_1_2_1(logined_page):
+def test_add2fav_1_2_1(logined_page):
     goods_for_fav = logined_page.goods_list
     LoginedPage.goods_heart_button(
         goods_for_fav[1]).click()

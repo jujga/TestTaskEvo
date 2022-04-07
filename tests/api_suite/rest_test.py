@@ -13,7 +13,7 @@ class RequestComponents:
 
 
 @pytest.mark.rest
-def test1_create_user():
+def test_create_user():
 
     payload = json.dumps({
         "name": "User for test1",
@@ -37,7 +37,7 @@ def test1_create_user():
 
 
 @pytest.mark.rest
-def test2_get_user():
+def test_get_user():
     user_id = 4327
     response = requests.request(
         "GET", gorest_users_url+'/'+str(user_id), headers=RequestComponents.headers)
@@ -51,7 +51,7 @@ def test2_get_user():
 
 
 @pytest.mark.rest
-def test3_update_user():
+def test_update_user():
     user_id = 5099
     payload = json.dumps({
         "name": "Changed Name",
