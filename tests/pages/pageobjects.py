@@ -22,7 +22,7 @@ class BasePage(object):
                                      './/span[@data-qaid="add_favorite"]')
 
     @property
-    def comein_link(self):
+    def sign_in_link(self):
         return self.driver.find_element(By.XPATH,
                                         '//button[@data-qaid="sign-in"]')
 

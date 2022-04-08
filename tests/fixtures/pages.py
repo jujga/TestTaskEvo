@@ -9,7 +9,7 @@ from tests import common
 def logined_page(driver: driver):
     driver.get(PromEndpoints.velosipednye_shiny())
     main_page = MainPage(driver)
-    main_page.comein_link.click()
+    main_page.sign_in_link.click()
     common.login_steps(main_page)
     return main_page.go_logined_page()
 

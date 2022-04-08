@@ -2,6 +2,8 @@ import pytest
 import requests
 import json
 from tests.test_data.endpoints import gorest_users_url
+from tests.test_data.rest_data import Users
+from tests.helpers import get_url_userid
 
 
 class RequestComponents:
@@ -37,22 +39,22 @@ def test_create_user():
 
 
 @pytest.mark.rest
-def test_get_user():
-    user_id = 5354
+def test_get_user(create_users):
+    user_id = Users.users['0']
     response = requests.request(
         "GET", get_url_userid(gorest_users_url, user_id), headers=RequestComponents.headers)
     assert response.status_code == 200
     assert response.json() == \
            {"id": user_id,
-            "name": "jujga1",
-            "email": "jujga1@15ce.com",
+            "name": "User for test_get_user",
             "gender": "male",
+            "email": "user_for_test_get_user@15ce.com",
             "status": "active"}
 
 
 @pytest.mark.rest
-def test_update_user():
-    user_id = 5345
+def test_update_user(create_users):
+    user_id = Users.users['1']
     payload = json.dumps({
         "name": "Changed Name",
         "email": "changed_mail@15ce.com",
@@ -67,8 +69,3 @@ def test_update_user():
             "email": "changed_mail@15ce.com",
             "gender": "female",
             "status": "inactive"}
-
-
-# HELPERS
-def get_url_userid(baseurl, user_id):
-    return f'{baseurl}/{user_id}'
