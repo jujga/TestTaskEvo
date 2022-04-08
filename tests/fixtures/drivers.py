@@ -1,6 +1,7 @@
 import pytest
 from time import sleep
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 # import tests.test_data.endpoints
 from tests.test_data.endpoints import PromEndpoints
@@ -11,7 +12,8 @@ from tests.pages.pageobjects import FavoritePage
 def driver(request):
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
+    # driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.maximize_window()
     driver.implicitly_wait(10)
 
