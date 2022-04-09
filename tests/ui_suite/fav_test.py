@@ -1,4 +1,5 @@
 import pytest
+import allure
 import pytest_check as check
 from tests.pages.pageobjects import LoginedPage
 import tests.common as common
@@ -7,11 +8,15 @@ import tests.common as common
 добавляем в избранное из списка или из товара"""
 
 
+@allure.title('Adding some goods to favorites when user is logined')
 @pytest.mark.ui
-@pytest.mark.parametrize('fav_numbers, add_fav_from_detail', (
-        ((0, 1), 'add_from_goods_list'),
-        ((0, 2, 4), 'add_from_goods_list'),
-        ((2, 5), 'add_from_goods_detail')))
+@pytest.mark.parametrize('fav_numbers, add_fav_from_detail',
+                         (
+                                 ((0, 1), 'add_from_goods_list'),
+                                 ((0, 2, 4), 'add_from_goods_list'),
+                                 ((2, 5), 'add_from_goods_detail')
+                         )
+                         )
 def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
     goods_for_fav = logined_page.goods_list
     fav_goods_names_expected = []
@@ -23,21 +28,25 @@ def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
                 fav_goods_names_expected.append(
                     LoginedPage.good_name_text(goods_for_fav[goods_index]))
                 # клик по сердцу - добавление в избранное
-                LoginedPage.goods_heart_button(
-                    goods_for_fav[goods_index]).click()
+                with allure.step('Add desired goods to favorites using heart button'):
+                    LoginedPage.goods_heart_button(goods_for_fav[goods_index]).click()
             case 'add_from_goods_detail':  # добавляем в избранное c товара
-                # проваливаемся в товар
-                goodsdetail_page = logined_page.goods_click(goods_index)
+                with allure.step('Enter into goods details by clicking on the concrete goods'):
+                    # проваливаемся в товар
+                    goodsdetail_page = logined_page.goods_click(goods_index)
                 # запоминаем товар
                 fav_goods_names_expected.append(goodsdetail_page.good_name_txt)
-                goodsdetail_page.fav_add_button.click()
-                goodsdetail_page.browser_back_button_click()
+                with allure.step('Add current goods using heart button'):
+                    goodsdetail_page.fav_add_button.click()
+                with allure.step('Go back to goods list'):
+                    goodsdetail_page.browser_back_button_click()
 
     check.equal(logined_page.fav_button_counter_text,
                 str(len(fav_numbers)),
                 'Индекс количества элементов в избранном '
                 'на странице с товарами')
-    favorite_page = logined_page.fav_page_button_click()
+    with allure.step('Jump to favorite page'):
+        favorite_page = logined_page.fav_page_button_click()
 
     check.equal(favorite_page.fav_button_counter_text, str(len(fav_numbers)),
                 'Количество элементов в избранном на странице Избранное')
@@ -68,7 +77,6 @@ def test_add2fav_1_2_1(logined_page):
     goods_for_fav = logined_page.goods_list
     LoginedPage.goods_heart_button(
         goods_for_fav[1]).click()
-    from time import sleep
     fav_goods_names_expected = {
         LoginedPage.good_name_text(goods_for_fav[2])}
     LoginedPage.goods_heart_button(
@@ -83,8 +91,7 @@ def test_add2fav_1_2_1(logined_page):
 
 
 # HELPERS
+@allure.step('Comparing actual favorite list with expected')
 def assert_goodsnames_in_fav(actual_fav_goods_set, expected_fav_goods_set):
-    assert {i.text for i in actual_fav_goods_set} == \
-           {i for i in expected_fav_goods_set}, \
-           'Набор товаров в избранном равен набору,' \
-           'который добавлялся в избранное'
+    assert {i.text for i in actual_fav_goods_set} == {i for i in expected_fav_goods_set}, \
+        'Набор товаров в избранном равен набору, который добавлялся в избранное'

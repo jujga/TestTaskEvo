@@ -1,3 +1,4 @@
+import allure
 import pytest
 import requests
 import json
@@ -15,6 +16,7 @@ class RequestComponents:
 
 
 @pytest.mark.rest
+@allure.title('Creating user. Used method POST')
 def test_create_user():
 
     payload = json.dumps({
@@ -23,9 +25,9 @@ def test_create_user():
         "email": "user_for_test1@15ce.com",
         "status": "active"
     })
-
-    response = requests.request(
-        'POST', gorest_users_url, headers=RequestComponents.headers, data=payload)
+    with allure.step('send request'):
+        response = requests.request(
+            'POST', gorest_users_url, headers=RequestComponents.headers, data=payload)
     assert response.status_code == 201
     actual_response = response.json().copy()
     users_id_2_del = actual_response.pop('id')  # get id for delete in the pseudo teardown
@@ -38,6 +40,7 @@ def test_create_user():
     requests.delete(get_url_userid(gorest_users_url, users_id_2_del), headers=RequestComponents.headers)
 
 
+@allure.title('Getting user info. Used method GET')
 @pytest.mark.rest
 def test_get_user(create_users):
     user_id = Users.users['0']
@@ -52,6 +55,7 @@ def test_get_user(create_users):
             "status": "active"}
 
 
+@allure.title('Updating user. Used method PATCH')
 @pytest.mark.rest
 def test_update_user(create_users):
     user_id = Users.users['1']

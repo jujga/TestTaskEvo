@@ -1,14 +1,15 @@
+import allure
 import pytest
 from time import sleep
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
-# import tests.test_data.endpoints
 from tests.test_data.endpoints import PromEndpoints
 from tests.pages.pageobjects import FavoritePage
 
 
 @pytest.fixture
+@allure.step(f'Running browser')
 def driver(request):
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
@@ -17,6 +18,7 @@ def driver(request):
     driver.maximize_window()
     driver.implicitly_wait(10)
 
+    @allure.step('Clearing favorite list and closing browser')
     def fin():
         driver.get(PromEndpoints.favorites())
         # очищается список избранных после каждого теста

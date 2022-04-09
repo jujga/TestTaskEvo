@@ -1,3 +1,4 @@
+import allure
 import pytest
 from tests.pages.pageobjects import MainPage
 from tests.fixtures.drivers import driver
@@ -6,6 +7,7 @@ from tests import common
 
 
 @pytest.fixture
+@allure.step(f'Jumping to {PromEndpoints.velosipednye_shiny()} and logining')
 def logined_page(driver: driver):
     driver.get(PromEndpoints.velosipednye_shiny())
     main_page = MainPage(driver)
@@ -15,6 +17,7 @@ def logined_page(driver: driver):
 
 
 @pytest.fixture
+@allure.step(f'Jumping to {PromEndpoints.velosipednye_shiny()}')
 def main_page(driver: driver):
     driver.get(PromEndpoints.velosipednye_shiny())
     return MainPage(driver)
