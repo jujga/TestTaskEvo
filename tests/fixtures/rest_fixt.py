@@ -7,12 +7,13 @@ from tests.test_data.endpoints import gorest_users_url
 from tests.helpers import get_url_userid
 
 
-# create users for tests test_get_user and test_update_user as precondition and delete as teardown. Because of absent
-# normal test env
-# Users.users[0] - user for test test_get_user (id)
-# Users.users[1] - user for test test_update_user (id)
 @pytest.fixture(scope="module")
 def create_users(request):
+    """create users for tests test_get_user and test_update_user as precondition and delete as teardown.
+    Because of absent normal test env
+    Users.users[0] - user for test test_get_user (id)
+    Users.users[1] - user for test test_update_user (id)"""
+
     payload = [
         json.dumps({"name": "User for test_get_user",
                     "gender": "male",
