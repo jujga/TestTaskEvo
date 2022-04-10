@@ -1,2 +1,4 @@
 class Users:
-    users = dict()
+    users = []
+class Config:
+    logger = None
