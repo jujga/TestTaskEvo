@@ -8,6 +8,9 @@ from tests.test_data.endpoints import PromEndpoints
 from tests.pages.pageobjects import FavoritePage
 
 
+class DriverForAllure:
+    driver = None
+
 @pytest.fixture
 @allure.step(f'Running browser')
 def driver(request):
@@ -15,6 +18,7 @@ def driver(request):
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
     # driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    DriverForAllure.driver = driver
     driver.maximize_window()
     driver.implicitly_wait(10)
 

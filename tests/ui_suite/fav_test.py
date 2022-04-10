@@ -3,6 +3,7 @@ import allure
 import pytest_check as check
 from tests.pages.pageobjects import LoginedPage
 import tests.common as common
+from tests.fixtures.drivers import DriverForAllure
 
 """параметризуем массивом индексов товаров и признаком,
 добавляем в избранное из списка или из товара"""
@@ -18,6 +19,8 @@ import tests.common as common
                          )
                          )
 def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
+# uncomment below and comment above from "@pytest.mark.parametrize" to def test_add2fav to do only one test without parametrize
+# def test_add2fav(logined_page, fav_numbers = (0,1), add_fav_from_detail='add_from_goods_list'):
     goods_for_fav = logined_page.goods_list
     fav_goods_names_expected = []
     for goods_index in fav_numbers:
@@ -30,6 +33,7 @@ def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
                 # клик по сердцу - добавление в избранное
                 with allure.step('Add desired goods to favorites using heart button'):
                     LoginedPage.goods_heart_button(goods_for_fav[goods_index]).click()
+                    allure.attach(DriverForAllure.driver.get_screenshot_as_png(), name=f'After clicking on the {goods_index}-th goods/s heart button', attachment_type=allure.attachment_type.PNG)
             case 'add_from_goods_detail':  # добавляем в избранное c товара
                 with allure.step('Enter into goods details by clicking on the concrete goods'):
                     # проваливаемся в товар
@@ -38,8 +42,14 @@ def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
                 fav_goods_names_expected.append(goodsdetail_page.good_name_txt)
                 with allure.step('Add current goods using heart button'):
                     goodsdetail_page.fav_add_button.click()
+                    allure.attach(DriverForAllure.driver.get_screenshot_as_png(),
+                                  name=f'After clicking on the goods/s heart button on the goods detail poge',
+                                  attachment_type=allure.attachment_type.PNG)
                 with allure.step('Go back to goods list'):
                     goodsdetail_page.browser_back_button_click()
+                    allure.attach(DriverForAllure.driver.get_screenshot_as_png(),
+                                  name=f'Goods list',
+                                  attachment_type=allure.attachment_type.PNG)
 
     check.equal(logined_page.fav_button_counter_text,
                 str(len(fav_numbers)),
@@ -47,7 +57,9 @@ def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
                 'на странице с товарами')
     with allure.step('Jump to favorite page'):
         favorite_page = logined_page.fav_page_button_click()
-
+        allure.attach(DriverForAllure.driver.get_screenshot_as_png(),
+                      name=f'Favorite page',
+                      attachment_type=allure.attachment_type.PNG)
     check.equal(favorite_page.fav_button_counter_text, str(len(fav_numbers)),
                 'Количество элементов в избранном на странице Избранное')
     assert_goodsnames_in_fav(favorite_page.fav_list, fav_goods_names_expected)
