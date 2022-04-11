@@ -59,7 +59,7 @@ def logger(request):
         Config.logger.removeHandler(hdlr)
     Config.logger.addHandler(log_file)
 
-
+# need to think how to combine both logger funcs (logger and logger_fixt) in one func
 def logger_fixt(obj):
     os.makedirs(os.path.join('content', 'log'), exist_ok=True)
     log_file = logging.FileHandler(os.path.join('content', 'log', 'test_case.log'))
