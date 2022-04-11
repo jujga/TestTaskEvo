@@ -25,11 +25,11 @@ def test_create_user():
         "email": "user_for_test1@15ce.com",
         "status": "active"
     })
-    with allure.step('send request'):
-        response = requests.request(
-            'POST', gorest_users_url, headers=RequestComponents.headers, data=payload)
-        Config.logger.info(f'Пишем в лог статус код{response.status_code}')
-        Config.logger.info(f'Пишем в лог json {response.json()}')
+
+    response = requests.request(
+        'POST', gorest_users_url, headers=RequestComponents.headers, data=payload)
+    Config.logger.info(f'response code - {response.status_code}')
+    Config.logger.info(f'response body - {response.json()}')
 
     assert response.status_code == 201
     actual_response = response.json().copy()
@@ -47,6 +47,8 @@ def test_get_user():
     user_id = Users.users[0]
     response = requests.request(
         "GET", get_url_userid(gorest_users_url, user_id), headers=RequestComponents.headers)
+    Config.logger.info(f'response code - {response.status_code}')
+    Config.logger.info(f'response body - {response.json()}')
     assert response.status_code == 200
     assert response.json() == \
            {"id": user_id,
@@ -67,6 +69,8 @@ def test_update_user():
     })
     response = requests.request(
         'PATCH', get_url_userid(gorest_users_url, user_id), headers=RequestComponents.headers, data=payload)
+    Config.logger.info(f'response code - {response.status_code}')
+    Config.logger.info(f'response body - {response.json()}')
     assert response.status_code == 200
     assert response.json() == \
            {"id": user_id,
