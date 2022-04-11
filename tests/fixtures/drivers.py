@@ -16,7 +16,6 @@ class DriverForAllure:
 def driver(request):
     options = webdriver.ChromeOptions()
     options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    # driver = webdriver.Chrome(executable_path=ChromeDriverManager().install(), options=options)
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     DriverForAllure.driver = driver
     driver.maximize_window()
