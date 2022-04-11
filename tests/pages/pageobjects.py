@@ -4,6 +4,8 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from tests.utilities.utils import DriverForAllure
+import allure
 
 
 class BasePage(object):
@@ -13,13 +15,16 @@ class BasePage(object):
         self.driver.implicitly_wait(5)
         self.wait = WebDriverWait(driver, 10)
 
-    def browser_back_button_click(self):
+    @allure.step('Go back')
+    def click_browser_back_button(self):
         self.driver.back()
+        do_allure_screenshot(f'Previous page')
 
     @staticmethod
-    def goods_heart_button(web_item):
-        return web_item.find_element(By.XPATH,
-                                     './/span[@data-qaid="add_favorite"]')
+    @allure.step('Add goods with index {1} to favorites using heart button')
+    def click_goods_heart_button(web_item_list, goods_index):
+        web_item_list[goods_index].find_element(By.XPATH,'.//span[@data-qaid="add_favorite"]').click()
+        do_allure_screenshot(f'After clicking on the {goods_index}-th goods/s heart button')
 
     @property
     def sign_in_link(self):
@@ -83,12 +88,16 @@ class LoginedPage(MainPage):
         return self.driver.find_element(
             By.XPATH, '//button[@data-qaid = "favorite_cabinet_button"]')
 
-    def fav_page_button_click(self):
+    @allure.step('Jump to favorite page')
+    def click_fav_page_button(self):
         self.fav_page_button.click()
+        do_allure_screenshot('Favorite page')
         return FavoritePage(self.driver)
 
-    def goods_click(self, i):
+    @allure.step('Enter into goods details by clicking on the goods with index {1}')
+    def click_on_goods(self, i):
         self.goods_list[i].click()
+        do_allure_screenshot('Goods details')
         return GoodsDetail(self.driver)
 
     @staticmethod
@@ -96,20 +105,20 @@ class LoginedPage(MainPage):
         return web_item.find_element(
             By.XPATH, './/span[@data-qaid="product_name"]').text
 
-    @staticmethod
-    def goods_heart_button(web_item):
-        return web_item.find_element(By.XPATH,
-                                     './/span[@data-qaid="add_favorite"]')
+    # @staticmethod
+    # def goods_heart_button(web_item):
+    #     return web_item.find_element(By.XPATH,
+    #                                  './/span[@data-qaid="add_favorite"]')
 
     @property
     def fav_button_counter_text(self):
         return self.driver.find_element(By.XPATH,
                                         '//div[@data-qaid="counter"]').text
 
-    @staticmethod
-    def goods_link(web_item):
-        return self.driver.find_element(By.XPATH,
-                                        '//div[@data-qaid="counter"]').text
+    # @staticmethod
+    # def goods_link(web_item):
+    #     return self.driver.find_element(By.XPATH,
+    #                                     '//div[@data-qaid="counter"]').text
 
 
 class FavoritePage(BasePage):
@@ -141,6 +150,11 @@ class GoodsDetail(BasePage):
         return self.driver.find_element(By.XPATH,
                                         '//span[@data-qaid="add_favorite"]')
 
+    @allure.step('Add current goods to favorites using heart button')
+    def click_fav_add_button(self):
+        self.fav_add_button.click()
+        do_allure_screenshot(f'After clicking on the heart button')
+
     @property
     def good_code_text(self):
         return self.driver.find_element(
@@ -150,3 +164,11 @@ class GoodsDetail(BasePage):
     def good_name_txt(self):
         return self.driver.find_element(
             By.XPATH, '//h1[@data-qaid="product_name"]').text
+
+
+
+# HELPERS
+def do_allure_screenshot(name):
+    allure.attach(DriverForAllure.driver.get_screenshot_as_png(),
+                  name=name,
+                  attachment_type=allure.attachment_type.PNG)

@@ -6,10 +6,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium import webdriver
 from tests.test_data.endpoints import PromEndpoints
 from tests.pages.pageobjects import FavoritePage
-
-
-class DriverForAllure:
-    driver = None
+from tests.utilities.utils import DriverForAllure
 
 @pytest.fixture
 @allure.step(f'Running browser')
