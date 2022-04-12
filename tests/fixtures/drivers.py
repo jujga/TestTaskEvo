@@ -9,6 +9,7 @@ from tests.pages.pageobjects import FavoritePage
 from tests.utilities.utils import DriverForAllure
 from tests.common import do_allure_screenshot
 
+
 @pytest.fixture
 @allure.step(f'Running browser')
 def driver(request):

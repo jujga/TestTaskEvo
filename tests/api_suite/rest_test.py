@@ -7,6 +7,7 @@ from tests.test_data.rest_data import Users
 from tests.helpers import get_url_userid
 from tests.test_data.rest_data import Config
 
+
 class RequestComponents:
     headers = {
         'Accept': 'application/json',
@@ -33,7 +34,7 @@ def test_create_user():
 
     assert response.status_code == 201
     actual_response = response.json().copy()
-    Users.users.append(actual_response.pop('id')) # get id for delete for teardown
+    Users.users.append(actual_response.pop('id'))  # get id for delete for teardown
     assert actual_response == \
            {"name": "User for test1",
             "email": "user_for_test1@15ce.com",

@@ -8,7 +8,6 @@ from tests.test_data.rest_data import Users
 from tests.test_data.endpoints import gorest_users_url
 from tests.helpers import get_url_userid
 from tests.test_data.rest_data import Config
-from tests.utilities.utils import myself
 
 
 @pytest.fixture(scope="module", autouse=True)
@@ -58,6 +57,7 @@ def logger(request):
     for hdlr in Config.logger.handlers[:]:  # remove all old handlers
         Config.logger.removeHandler(hdlr)
     Config.logger.addHandler(log_file)
+
 
 # need to think how to combine both logger funcs (logger and logger_fixt) in one func
 def logger_fixt(obj):

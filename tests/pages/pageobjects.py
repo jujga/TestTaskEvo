@@ -21,17 +21,15 @@ class BasePage(object):
         do_allure_screenshot(f'Previous page')
 
     @staticmethod
-    @allure.step('Add goods with index {1} to favorites using heart button')
+    @allure.step('Clicking on a heart button on the goods with index {1}')
     def click_goods_heart_button(web_item_list, goods_index):
-        web_item_list[goods_index].find_element(By.XPATH,'.//span[@data-qaid="add_favorite"]').click()
+        web_item_list[goods_index].find_element(By.XPATH, './/span[@data-qaid="add_favorite"]').click()
         do_allure_screenshot(f'After clicking on the {goods_index}-th goods/s heart button')
-
 
     @staticmethod
     def good_name_text(web_item):
         return web_item.find_element(
             By.XPATH, './/span[@data-qaid="product_name"]').text
-
 
     @property
     def sign_in_link(self):
@@ -107,21 +105,10 @@ class LoginedPage(MainPage):
         do_allure_screenshot('Goods details')
         return GoodsDetail(self.driver)
 
-
-    # @staticmethod
-    # def goods_heart_button(web_item):
-    #     return web_item.find_element(By.XPATH,
-    #                                  './/span[@data-qaid="add_favorite"]')
-
     @property
     def fav_button_counter_text(self):
         return self.driver.find_element(By.XPATH,
                                         '//div[@data-qaid="counter"]').text
-
-    # @staticmethod
-    # def goods_link(web_item):
-    #     return self.driver.find_element(By.XPATH,
-    #                                     '//div[@data-qaid="counter"]').text
 
 
 class FavoritePage(BasePage):
@@ -153,7 +140,7 @@ class GoodsDetail(BasePage):
         return self.driver.find_element(By.XPATH,
                                         '//span[@data-qaid="add_favorite"]')
 
-    @allure.step('Add current goods to favorites using heart button')
+    @allure.step("Clicking on a heart button on the goods's detail")
     def click_fav_add_button(self):
         self.fav_add_button.click()
         do_allure_screenshot(f'After clicking on the heart button')
@@ -167,7 +154,6 @@ class GoodsDetail(BasePage):
     def good_name_txt(self):
         return self.driver.find_element(
             By.XPATH, '//h1[@data-qaid="product_name"]').text
-
 
 
 # HELPERS
