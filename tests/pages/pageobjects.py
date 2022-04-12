@@ -26,6 +26,13 @@ class BasePage(object):
         web_item_list[goods_index].find_element(By.XPATH,'.//span[@data-qaid="add_favorite"]').click()
         do_allure_screenshot(f'After clicking on the {goods_index}-th goods/s heart button')
 
+
+    @staticmethod
+    def good_name_text(web_item):
+        return web_item.find_element(
+            By.XPATH, './/span[@data-qaid="product_name"]').text
+
+
     @property
     def sign_in_link(self):
         return self.driver.find_element(By.XPATH,
@@ -100,10 +107,6 @@ class LoginedPage(MainPage):
         do_allure_screenshot('Goods details')
         return GoodsDetail(self.driver)
 
-    @staticmethod
-    def good_name_text(web_item):
-        return web_item.find_element(
-            By.XPATH, './/span[@data-qaid="product_name"]').text
 
     # @staticmethod
     # def goods_heart_button(web_item):

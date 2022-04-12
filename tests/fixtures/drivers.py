@@ -7,6 +7,7 @@ from selenium import webdriver
 from tests.test_data.endpoints import PromEndpoints
 from tests.pages.pageobjects import FavoritePage
 from tests.utilities.utils import DriverForAllure
+from tests.common import do_allure_screenshot
 
 @pytest.fixture
 @allure.step(f'Running browser')
@@ -25,6 +26,8 @@ def driver(request):
         for cross_button_index in FavoritePage(driver).del_favs_button:
             sleep(1)  # пока что ничего лучшего тут не вышло(
             cross_button_index.click()
+        sleep(1)
+        do_allure_screenshot('Favorite list must be empty')
         sleep(1)
         driver.close()
 
