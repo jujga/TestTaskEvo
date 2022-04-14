@@ -7,13 +7,10 @@ import tests.common as common
 
 @allure.title('Adding some goods to favorites when user is logined')
 @pytest.mark.ui
-@pytest.mark.parametrize('fav_numbers, add_fav_from_detail',
-                         (
-                                 ((0, 1), 'add_from_goods_list'),
-                                 ((0, 2, 4), 'add_from_goods_list'),
-                                 ((2, 5), 'add_from_goods_detail')
-                         )
-                         )
+@pytest.mark.parametrize('fav_numbers, add_fav_from_detail', (
+        ((0, 1), 'add_from_goods_list'),
+        ((0, 2, 4), 'add_from_goods_list'),
+        ((2, 5), 'add_from_goods_detail')))
 def test_add2fav(logined_page, fav_numbers: tuple, add_fav_from_detail: str):
     goods_for_fav = logined_page.goods_list
     fav_goods_names_expected = []
